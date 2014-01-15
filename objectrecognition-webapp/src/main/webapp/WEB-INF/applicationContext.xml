@@ -13,9 +13,19 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
-    <context:component-scan base-package="no.meso.crm.rest" />
+    <context:component-scan base-package="no.iprog.ml.objectrecognition.webapp.resources" />
     <mvc:annotation-driven />
     
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="10000" />
     <mvc:resources mapping="/client/**" location="/client/" cache-period="10000" />
+    
+    <bean id="hadoopConf" class="no.iprog.ml.objectrecognition.hadoop.Configuration">
+        <property name="fsDefaultName">
+            <value>hdfs://192.168.33.10:9000</value>
+        </property>
+    </bean>
+    
+    <bean id="fileService" class="no.iprog.ml.objectrecognition.hadoop.hdfs.HDFSFileService" init-method="init" destroy-method="destroy">
+        <property name="conf" ref="hadoopConf"/>
+    </bean>
 </beans>

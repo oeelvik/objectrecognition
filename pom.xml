@@ -8,5 +8,7 @@
   <name>ObjectRecognition</name>
   <modules>
     <module>objectrecognition-webapp</module>
+    <module>objectrecognition-api</module>
+    <module>objectrecognition-hadoop</module>
   </modules>
 </project>
