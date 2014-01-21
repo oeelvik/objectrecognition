@@ -1,5 +1,6 @@
 package no.iprog.ml.objectrecognition.hadoop.hdfs;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,7 +11,6 @@ import no.iprog.ml.objectrecognition.api.AbstractFileService;
 import no.iprog.ml.objectrecognition.api.FileStatus;
 import no.iprog.ml.objectrecognition.hadoop.Configuration;
 import org.apache.commons.io.IOUtils;
-import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
@@ -31,7 +31,7 @@ public class HDFSFileService extends AbstractFileService {
     }
 
     public Collection<FileStatus> listFiles(String dirPath) throws IOException {
-        return this.listFiles(new Path(dirPath));
+        return this.listFiles(getPath(dirPath));
     }
     
     public Collection<FileStatus> listFiles(Path dirPath) throws IOException {
@@ -46,30 +46,48 @@ public class HDFSFileService extends AbstractFileService {
     }
 
     public void write(String filePath, InputStream data, boolean append) throws IOException {
-        Path path = new Path(filePath);
+        Path path = getPath(filePath);
         
-        FSDataOutputStream out;
-        if (append) out = fileSystem.append(path);
-        else out = fileSystem.create(path, false);
+        BufferedOutputStream out;
+        if (append) out = new BufferedOutputStream(fileSystem.append(path));
+        else out = new BufferedOutputStream(fileSystem.create(path, false));
         
         IOUtils.copy(data, out);
         
+        data.close();
+        out.close();
+    }
+
+    @Override
+    public void write(String filePath, byte[] bytes, boolean append) throws IOException {
+        Path path = getPath(filePath);
+        
+        BufferedOutputStream out;
+        if (append) out = new BufferedOutputStream(fileSystem.append(path));
+        else out = new BufferedOutputStream(fileSystem.create(path, false));
+        
+        out.write(bytes);
         out.close();
     }
     
     public InputStream openInputStream(String filePath) throws IOException {
-        Path path = new Path(filePath);
+        Path path = getPath(filePath);
         
         return fileSystem.open(path);
     }
 
     public OutputStream openOutputStream(String filePath, boolean overwrite) throws IOException {
-        Path path = new Path(filePath);
+        Path path = getPath(filePath);
         
         return fileSystem.create(path, overwrite);
     }
     
     public void destroy() throws IOException{
         fileSystem.close();
+    }
+    
+    private Path getPath(String path) {
+        if(path.startsWith("/")) return new Path(path);
+        return new Path(this.conf.getBasepath().concat(path));
     }
 }

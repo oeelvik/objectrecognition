@@ -19,9 +19,15 @@
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="10000" />
     <mvc:resources mapping="/client/**" location="/client/" cache-period="10000" />
     
+    <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    
     <bean id="hadoopConf" class="no.iprog.ml.objectrecognition.hadoop.Configuration">
         <property name="fsDefaultName">
             <value>hdfs://192.168.33.10:9000</value>
+        </property>
+        <property name="basepath">
+            <value>/objectrecognition/</value>
         </property>
     </bean>
     

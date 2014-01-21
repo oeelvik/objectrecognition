@@ -14,11 +14,17 @@
         <script type="text/javascript" src="bower_components/select2/select2.js"></script>
         <script type="text/javascript" src="bower_components/angular-ui-select2/src/select2.js"></script>
 
+        <script type="text/javascript" src="bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="bower_components/jquery-file-upload/js/jquery.iframe-transport.js"></script>
+        <script type="text/javascript" src="bower_components/jquery-file-upload/js/jquery.fileupload.js"></script>
+
         <script type="text/javascript" src="js/app.js"></script>
     </head>
     <body ng-app="od">
         <div class="container" ng-controller="ImageTaggingController" style="position:relative">
             <div class="wrapper">
+                <uploader url="/objectrecognition-webapp/image"></uploader>
+
                 <select class="form-control" ng-model="image" ng-options="i.path for i in images"></select>
                 
                 <div class="box">

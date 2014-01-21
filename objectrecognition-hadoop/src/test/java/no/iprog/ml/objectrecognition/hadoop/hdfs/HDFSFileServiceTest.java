@@ -53,7 +53,7 @@ public class HDFSFileServiceTest extends TestCase {
         instance.init();
         
         
-        instance.write("/objectrecognition/images/test.jpg", getClass().getResourceAsStream("/0.jpeg"));
+        //instance.write("/objectrecognition/images/test.jpg", getClass().getResourceAsStream("/0.jpeg"));
         
         
         // TODO review the generated test code and remove the default call to fail.

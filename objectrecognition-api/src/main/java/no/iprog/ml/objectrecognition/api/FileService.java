@@ -13,6 +13,8 @@ public interface FileService {
     public Collection<FileStatus> listFiles(String dirPath) throws IOException;
     public void write(String filePath, CharSequence data) throws IOException;
     public void write(String filePath, CharSequence data, boolean append) throws IOException;
+    public void write(String filePath, byte[] bytes) throws IOException;
+    public void write(String filePath, byte[] bytes, boolean append) throws IOException;
     public void write(String filePath, InputStream data) throws IOException;
     public void write(String filePath, InputStream data, boolean append) throws IOException;
     public InputStream openInputStream(String filePath) throws IOException;

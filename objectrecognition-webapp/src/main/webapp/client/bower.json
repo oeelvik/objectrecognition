@@ -7,6 +7,7 @@
     "angular": "~1.2.6",
     "bootstrap": "~3.0.3",
     "angular-ui-bootstrap3": "~0.6.0",
-    "angular-ui-select2": "~0.0.5"
+    "angular-ui-select2": "~0.0.5",
+    "jquery-file-upload": "~9.5.2"
   }
 }

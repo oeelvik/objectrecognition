@@ -20,6 +20,12 @@ public abstract class AbstractFileService implements FileService {
     public void write(String filePath, InputStream data) throws IOException {
         this.write(filePath, filePath, false);
     }
+
+    public void write(String filePath, byte[] bytes) throws IOException {
+        this.write(filePath, bytes, false);
+    }
     
-    
+    public void write(String filePath, byte[] bytes, boolean apply) throws IOException {
+        this.write(filePath, new String(bytes), apply);
+    }
 }

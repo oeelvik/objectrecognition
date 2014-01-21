@@ -1,0 +1,21 @@
+<div>
+	<div class="control-group">
+	    <div class="controls">
+	        <span class="btn btn-success fileinput-button">
+	            <i class="icon-plus icon-white"></i>
+	            <input type="file" name="file" multiple><span>Add files...</span>
+	        </span>
+	    </div>
+	</div>
+
+	<div>
+	    <span ng-show="!files.length">No files selected</span>
+	    <ul>
+	        <li ng-repeat="file in files">{{file.files[0].name}}</li>
+	    </ul>
+	</div>
+
+	<div class="form-actions">
+	    <button type="submit" class="btn btn-primary pull-left" ng-click="upload()">Upload</button>
+	</div>
+</div>
